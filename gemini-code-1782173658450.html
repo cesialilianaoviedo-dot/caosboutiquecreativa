@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CAOS · Boutique Creativa</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0e0e0e;
+    --white: #fafafa;
+    --gray: #888;
+    --light: #f4f4f2;
+    --blue: #0a0aee;
+    --blue-light: #d0d0fa;
+    --pink: #f0a0b4;
+    --pink-light: #fae0e8;
+    --border: rgba(14,14,14,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(250,250,250,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .logo span { color: var(--blue); }
+  nav a {
+    text-decoration: none;
+    color: var(--gray);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--black); }
+  .nav-cta {
+    background: var(--black) !important;
+    color: var(--white) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.75rem !important;
+  }
+  .nav-cta:hover { opacity: 0.75 !important; color: var(--white) !important; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -120px;
+    width: 420px; height: 420px;
+    background: var(--pink);
+    border-radius: 50%;
+    opacity: 0.25;
+    filter: blur(90px);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -100px;
+    width: 360px; height: 360px;
+    background: var(--blue-light);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(90px);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.4rem, 7vw, 6rem);
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    max-width: 820px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blue);
+  }
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: var(--gray);
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .hero-social {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 2rem;
+    align-items: center;
+  }
+  .hero-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 0.5px solid var(--border);
+    color: var(--gray);
+    text-decoration: none;
+    transition: all 0.2s;
+    background: var(--white);
+  }
+  .hero-social a:hover { border-color: var(--black); color: var(--black); transform: translateY(-2px); }
+  .hero-social svg { width: 16px; height: 16px; fill: currentColor; }
+  .btn-primary {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 0.85rem 2.2rem;
+    background: var(--black);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+    border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+  }
+  .btn-primary:hover { opacity: 0.75; }
+
+  /* STRIP */
+  .strip {
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1rem 0;
+    overflow: hidden;
+    background: var(--light);
+  }
+  .strip-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+  .strip-item {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray);
+    white-space: nowrap;
+  }
+  .strip-dot { color: var(--blue); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 2.5rem;
+  }
+
+  /* PORTFOLIO */
+  .portfolio { background: var(--white); }
+  .portfolio-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .portfolio h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .portfolio-link {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .portfolio-link:hover { color: var(--black); }
+  .portfolio-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+  /* CAROUSEL */
+  .carousel-wrap { position: relative; }
+  .carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+  }
+  .carousel::-webkit-scrollbar { display: none; }
+  .proj-card {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 0.5px solid var(--border);
+    text-decoration: none;
+    color: var(--black);
+    display: block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--light);
+  }
+  .proj-card:hover { transform: translateY(-3px); }
+  .proj-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    background: var(--light);
+  }
+  .proj-info { padding: 1rem 1.1rem; }
+  .proj-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
+  }
+  .proj-views {
+    font-size: 0.7rem;
+    color: var(--gray);
+  }
+  .carousel-arrows {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  .arr-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 0.5px solid var(--border);
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--black);
+  }
+  .arr-btn:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+  .arr-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+  /* PROCESO */
+  .proceso { background: var(--light); }
+  .proceso h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 3rem;
+    max-width: 500px;
+    line-height: 1.2;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0;
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .step {
+    padding: 2rem 1.5rem;
+    border-right: 0.5px solid var(--border);
+  }
+  .step:last-child { border-right: none; }
+  .step-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    color: rgba(14,14,14,0.12);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .step h3 {
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .step p { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
+  .step-accent { width: 18px; height: 2px; margin-bottom: 1rem; border-radius: 2px; }
+  .accent-pink { background: var(--pink); }
+  .accent-blue { background: var(--blue); }
+
+  /* PLANES */
+  .planes { background: var(--white); }
+  .planes h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .planes-sub { color: var(--gray); font-size: 0.9rem; margin-bottom: 3rem; }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .card {
+    background: var(--white);
+    padding: 2rem 1.75rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .card:hover { background: #f9f9f7; }
+  .card.selected { background: var(--black); color: var(--white); }
+  .card.selected .card-price { color: var(--white); }
+  .card.selected .card-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+  .card.selected .feature-item { color: rgba(255,255,255,0.7); }
+  .card.selected .feature-item::before { color: rgba(255,255,255,0.25); }
+  .card.selected .select-btn { background: var(--white); color: var(--black); }
+  .card.selected .card-name { color: var(--white); }
+  .card-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--light);
+    color: var(--gray);
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 1.5rem;
+  }
+  .card-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--black);
+    margin-bottom: 0.2rem;
+  }
+  .card-price {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .card-price span { font-size: 0.72rem; font-weight: 300; color: var(--gray); letter-spacing: 0; }
+  .features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; margin-bottom: 2rem; }
+  .feature-item {
+    font-size: 0.78rem;
+    color: var(--gray);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.4;
+  }
+  .feature-item::before { content: '—'; position: absolute; left: 0; color: var(--border); }
+  .select-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 0.7rem;
+    background: var(--light);
+    border: none;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--black);
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 400;
+  }
+  .select-btn:hover { background: #e8e8e4; }
+  .card.custom { background: var(--light); }
+  .card.custom.selected { background: var(--black); }
+
+  /* FORMULARIO */
+  .contacto { background: var(--light); }
+  .contacto h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .contacto-sub { color: var(--gray); font-size: 0.9rem; margin-bottom: 2rem; }
+  .plan-selected-badge {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    background: var(--blue);
+    color: var(--white);
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+  .plan-selected-badge.hidden { display: none; }
+  .form-wrap {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+  input, select, textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 0.75rem 1rem;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--black);
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--blue); }
+  textarea { resize: vertical; min-height: 110px; }
+  .form-note { font-size: 0.72rem; color: var(--gray); margin-top: 1.25rem; text-align: center; }
+  .submit-row { text-align: center; margin-top: 1.5rem; }
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    background: var(--white);
+  }
+  .success-msg.visible { display: block; }
+  .success-msg h3 { font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .success-msg p { color: var(--gray); font-size: 0.9rem; }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo { font-family: 'Instrument Serif', serif; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .footer-social { display: flex; gap: 1rem; align-items: center; }
+  .footer-social a {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gray);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .footer-social a:hover { border-color: var(--black); color: var(--black); }
+  .footer-social svg { width: 15px; height: 15px; fill: currentColor; }
+
+  /* WHATSAPP FLOTANTE */
+  .wa-float {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: #25D366;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+    z-index: 200;
+  }
+  .wa-float:hover { transform: scale(1.08); }
+  .wa-float svg { width: 26px; height: 26px; fill: white; }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1rem; }
+    nav a:not(.nav-cta):not(:last-child) { display: none; }
+    section { padding: 4rem 1.25rem; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+    .form-wrap { padding: 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .step { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .step:nth-child(odd) { border-right: 0.5px solid var(--border); }
+    .step:nth-last-child(-n+2) { border-bottom: none; }
+    .proj-card { flex: 0 0 220px; }
+    .portfolio-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">CAOS <span>·</span></div>
+  <div class="nav-links">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#planes">Planes</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#contacto" class="nav-cta">Hablemos</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Boutique creativa · Buenos Aires</p>
+  <h1>Marketing digital<br>enfocado en <em>creación<br>de contenido.</em></h1>
+  <p class="hero-sub">Gestión de redes, edición de video y estrategia para marcas que quieren crecer de verdad.</p>
+  <div class="hero-social">
+    <a href="https://www.instagram.com/caos.boutiquecreativa/" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="mailto:cesialilianaoviedo@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </a>
+    <a href="https://wa.me/5493517340173" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+  <a href="#planes" class="btn-primary">Ver planes</a>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-track">
+    <span class="strip-item">Social Media Management</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Identidad Visual</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Edición de Video</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Pauta Digital</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Creación de Contenido</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Meta & Google Ads</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Social Media Management</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Identidad Visual</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Edición de Video</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Pauta Digital</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Creación de Contenido</span>
+    <span class="strip-item strip-dot">·</span>
+    <span class="strip-item">Meta & Google Ads</span>
+    <span class="strip-item strip-dot">·</span>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <p class="section-label">Trabajos</p>
+    <div class="portfolio-header">
+      <h2>Algunos proyectos.</h2>
+      <a href="https://www.behance.net/cesiaoviedo" target="_blank" class="portfolio-link">
+        Ver todo en Behance
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel" id="carousel">
+        <a class="proj-card" href="https://www.behance.net/gallery/243392685/Slow-Wines-Content-Social-Media-Manager" target="_blank">
+          <img class="proj-img" src="https://mir-s3-cdn-cf.behance.net/projects/404/377aaf243392685.Y3JvcCw3NDgsNTg1LDM0NCw0MjY.jpg" alt="Slow Wines" loading="lazy" />
+          <div class="proj-info">
+            <div class="proj-name">Slow Wines / Content & Social Media Manager</div>
+            <div class="proj-views">28 vistas</div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://www.behance.net/gallery/243388027/Marquez-Social-Media-Strategist" target="_blank">
+          <img class="proj-img" src="https://mir-s3-cdn-cf.behance.net/projects/404/976992243388027.Y3JvcCwxMDgwLDg0NCwwLDExNw.jpeg" alt="Márquez" loading="lazy" />
+          <div class="proj-info">
+            <div class="proj-name">Márquez / Social Media Strategist</div>
+            <div class="proj-views">17 vistas</div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://www.behance.net/gallery/236527503/Gallery-Particulier" target="_blank">
+          <img class="proj-img" src="https://mir-s3-cdn-cf.behance.net/projects/404/042409236527503.Y3JvcCw4MTYsNjM4LDAsMTg.png" alt="Gallery Particulier" loading="lazy" />
+          <div class="proj-info">
+            <div class="proj-name">Gallery Particulier</div>
+            <div class="proj-views">20 vistas</div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://www.behance.net/gallery/220160265/School-In-One" target="_blank">
+          <img class="proj-img" src="https://mir-s3-cdn-cf.behance.net/projects/404/87b02c220160265.Y3JvcCwxMDgwLDg0NCwwLDExNw.png" alt="School In One" loading="lazy" />
+          <div class="proj-info">
+            <div class="proj-name">School In One</div>
+            <div class="proj-views">49 vistas</div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://www.behance.net/gallery/166234827/RAPIBOY" target="_blank">
+          <img class="proj-img" src="https://mir-s3-cdn-cf.behance.net/projects/404/b83d81166234827.Y3JvcCwyMDI3LDE1ODUsMCwyMjA.jpg" alt="RAPIBOY" loading="lazy" />
+          <div class="proj-info">
+            <div class="proj-name">RAPIBOY</div>
+            <div class="proj-views">99 vistas</div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://www.behance.net/gallery/153853985/disenitos" target="_blank">
+          <img class="proj-img" src="https://mir-s3-cdn-cf.behance.net/projects/404/6ae4bd153853985.Y3JvcCw0NTAwLDM1MTksMCwxMDQ3.jpg" alt="diseñitos" loading="lazy" />
+          <div class="proj-info">
+            <div class="proj-name">diseñitos</div>
+            <div class="proj-views">73 vistas</div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://www.behance.net/gallery/150514429/Social-Media-proyectos-freelance" target="_blank">
+          <img class="proj-img" src="https://mir-s3-cdn-cf.behance.net/projects/404/0891ca150514429.Y3JvcCw0NTAwLDM1MTksMCw0OTA.jpg" alt="Social Media + proyectos freelance" loading="lazy" />
+          <div class="proj-info">
+            <div class="proj-name">Social Media + proyectos freelance</div>
+            <div class="proj-views">98 vistas</div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://www.behance.net/gallery/138557825/Lado-B" target="_blank">
+          <img class="proj-img" src="https://mir-s3-cdn-cf.behance.net/projects/404/324ab9138557825.6220273f42c04.jpg" alt="Lado B" loading="lazy" />
+          <div class="proj-info">
+            <div class="proj-name">Lado B</div>
+            <div class="proj-views">43 vistas</div>
+          </div>
+        </a>
+      </div>
+      <div class="carousel-arrows">
+        <button class="arr-btn" onclick="slide(-1)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="arr-btn" onclick="slide(1)" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="proceso" id="proceso">
+  <div class="container">
+    <p class="section-label">Cómo trabajamos</p>
+    <h2>Un proceso que<br>cuida cada detalle.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-accent accent-pink"></div>
+        <div class="step-num">01</div>
+        <h3>Reunión de brief</h3>
+        <p>Conocemos tu marca, objetivos y audiencia. Sin formularios genéricos.</p>
+      </div>
+      <div class="step">
+        <div class="step-accent accent-blue"></div>
+        <div class="step-num">02</div>
+        <h3>Estudio de cuenta</h3>
+        <p>Analizamos tus redes, competencia y oportunidades de contenido.</p>
+      </div>
+      <div class="step">
+        <div class="step-accent accent-pink"></div>
+        <div class="step-num">03</div>
+        <h3>Estrategia</h3>
+        <p>Armamos un plan de contenido mensual alineado a tus metas.</p>
+      </div>
+      <div class="step">
+        <div class="step-accent accent-blue"></div>
+        <div class="step-num">04</div>
+        <h3>Aprobación</h3>
+        <p>Todo pasa por tus ojos antes de publicarse. Ajustamos sin drama.</p>
+      </div>
+      <div class="step">
+        <div class="step-accent accent-pink"></div>
+        <div class="step-num">05</div>
+        <h3>Publicación</h3>
+        <p>Ejecutamos, monitoreamos y optimizamos en tiempo real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="planes" id="planes">
+  <div class="container">
+    <p class="section-label">Propuestas</p>
+    <h2>Elegí tu plan.</h2>
+    <p class="planes-sub">Todos incluyen identidad visual, gestión de redes y pauta digital.</p>
+    <div class="cards">
+      <div class="card" id="card-basic" onclick="selectPlan('Basic', '$300.000/mes')">
+        <span class="card-tag">Esencial</span>
+        <div class="card-name">Basic</div>
+        <div class="card-price">$300.000<span>/mes</span></div>
+        <ul class="features">
+          <li class="feature-item">Identidad visual + manual de marca</li>
+          <li class="feature-item">4 publicaciones mensuales</li>
+          <li class="feature-item">5 historias por mes</li>
+          <li class="feature-item">1 reel editado</li>
+          <li class="feature-item">Copys y diseño gráfico</li>
+          <li class="feature-item">Reporte mensual de métricas</li>
+          <li class="feature-item">1 campaña Meta o Google Ads</li>
+        </ul>
+        <button class="select-btn">Elegir este plan</button>
+      </div>
+      <div class="card" id="card-medium" onclick="selectPlan('Medium', '$520.000/mes')">
+        <span class="card-tag">Recomendado</span>
+        <div class="card-name">Medium</div>
+        <div class="card-price">$520.000<span>/mes</span></div>
+        <ul class="features">
+          <li class="feature-item">Identidad visual + manual de marca</li>
+          <li class="feature-item">6 publicaciones mensuales</li>
+          <li class="feature-item">7 historias por mes</li>
+          <li class="feature-item">2 reels editados</li>
+          <li class="feature-item">Copys, diseño y guiones creativos</li>
+          <li class="feature-item">Reporte mensual de métricas</li>
+          <li class="feature-item">1 jornada de creación de contenido</li>
+          <li class="feature-item">2 campañas Meta o Google Ads</li>
+        </ul>
+        <button class="select-btn">Elegir este plan</button>
+      </div>
+      <div class="card" id="card-full" onclick="selectPlan('Full Integral', '$700.000/mes')">
+        <span class="card-tag">Completo</span>
+        <div class="card-name">Full Integral</div>
+        <div class="card-price">$700.000<span>/mes</span></div>
+        <ul class="features">
+          <li class="feature-item">Identidad visual + manual de marca</li>
+          <li class="feature-item">8 publicaciones mensuales</li>
+          <li class="feature-item">9 historias por mes</li>
+          <li class="feature-item">4 reels editados</li>
+          <li class="feature-item">Copys, diseño y guiones creativos</li>
+          <li class="feature-item">Reporte mensual de métricas</li>
+          <li class="feature-item">2 jornadas de creación de contenido</li>
+          <li class="feature-item">3 campañas Meta o Google Ads</li>
+        </ul>
+        <button class="select-btn">Elegir este plan</button>
+      </div>
+      <div class="card custom" id="card-custom" onclick="selectPlan('Plan a medida', '')">
+        <span class="card-tag">Flexible</span>
+        <div class="card-name">A medida</div>
+        <div class="card-price" style="font-size:0.95rem; color:var(--gray); padding-top:0.3rem;">Precio a coordinar</div>
+        <p style="font-size:0.8rem; color:var(--gray); line-height:1.55; margin-top:0.5rem; flex:1;">¿Tu marca necesita algo diferente? Armamos un paquete personalizado con los servicios exactos que necesitás.</p>
+        <button class="select-btn" style="margin-top:2rem;">Quiero uno a medida</button>
+      </div>
+    </div>
+    <p style="font-size:0.68rem; color:var(--gray); margin-top:1rem; text-align:center;">* Los precios no incluyen inversión publicitaria · La identidad visual tiene un pago único inicial</p>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="container">
+    <p class="section-label">Contacto</p>
+    <h2>Hablemos.</h2>
+    <p class="contacto-sub">Contanos de tu proyecto y te respondemos para agendar una reunión de brief.</p>
+    <div id="plan-badge" class="plan-selected-badge hidden"></div>
+    <div id="form-wrap" class="form-wrap">
+      <form id="contact-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-group">
+            <label for="empresa">Empresa / Marca</label>
+            <input type="text" id="empresa" placeholder="Nombre de tu marca" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="hola@tumarca.com" required />
+          </div>
+          <div class="form-group">
+            <label for="instagram">Instagram</label>
+            <input type="text" id="instagram" placeholder="@tumarca" />
+          </div>
+          <div class="form-group full">
+            <label for="plan">Plan de interés</label>
+            <select id="plan" required>
+              <option value="">Seleccioná un plan</option>
+              <option value="Basic">Basic — $300.000/mes</option>
+              <option value="Medium">Medium — $520.000/mes</option>
+              <option value="Full Integral">Full Integral — $700.000/mes</option>
+              <option value="Plan a medida">Plan a medida</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="mensaje">Contanos de tu marca</label>
+            <textarea id="mensaje" placeholder="¿Qué objetivos tenés? ¿A qué público apuntás?"></textarea>
+          </div>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="btn-primary">Enviar mensaje</button>
+        </div>
+        <p class="form-note">Te responderemos al email en menos de 24 horas hábiles.</p>
+      </form>
+    </div>
+    
+    <div id="success-msg" class="success-msg">
+      <h3>¡Mensaje recibido!</h3>
+      <p>Gracias por escribirnos. Pronto nos pondremos en contacto para coordinar la reunión.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CAOS · Boutique Creativa</div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/caos.boutiquecreativa/" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 15px; height: 15px; fill: currentColor;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://wa.me/5493517340173" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 15px; height: 15px; fill: currentColor;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5493517340173" class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- JAVASCRIPT PARA FUNCIONALIDAD -->
+<script>
+  // Lógica del Carrusel
+  const carousel = document.getElementById('carousel');
+  function slide(direction) {
+    const scrollAmount = 300;
+    carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  }
+
+  // Selección Interactiva de Planes
+  function selectPlan(planName, planPrice) {
+    // Deseleccionar todas las tarjetas
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+    
+    // Marcar la tarjeta clickeada
+    if(planName === 'Basic') document.getElementById('card-basic').classList.add('selected');
+    if(planName === 'Medium') document.getElementById('card-medium').classList.add('selected');
+    if(planName === 'Full Integral') document.getElementById('card-full').classList.add('selected');
+    if(planName === 'Plan a medida') document.getElementById('card-custom').classList.add('selected');
+
+    // Cambiar el valor del select del formulario automáticamente
+    const selectEl = document.getElementById('plan');
+    selectEl.value = planName;
+
+    // Mostrar Badge flotante de plan seleccionado
+    const badge = document.getElementById('plan-badge');
+    badge.innerText = `Plan seleccionado: ${planName} ${planPrice}`;
+    badge.classList.remove('hidden');
+
+    // Hacer scroll suave hacia el formulario
+    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Envío simulado de formulario
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('plan-badge').style.display = 'none';
+    document.getElementById('success-msg').classList.add('visible');
+  });
+</script>
+
+</body>
+</html>
